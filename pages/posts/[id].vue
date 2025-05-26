@@ -22,20 +22,28 @@
       </div>
 
       <!-- Error State -->
-      <div v-else-if="postsStore.error" class="text-center py-12">
+      <div v-else-if="postsStore.error || !postsStore.currentPost" class="text-center py-12">
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {{ postsStore.error }}
+          {{ postsStore.error || 'Post not found' }}
         </div>
-        <button 
-          @click="fetchPost"
-          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-        >
-          Try Again
-        </button>
+        <div class="flex justify-center space-x-4">
+          <button 
+            @click="fetchPost"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+          >
+            Try Again
+          </button>
+          <button 
+            @click="$router.push('/posts')"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors"
+          >
+            Back to Posts
+          </button>
+        </div>
       </div>
 
       <!-- Post Detail -->
-      <div v-else-if="postsStore.currentPost" class="max-w-4xl mx-auto">
+      <div v-else class="max-w-4xl mx-auto">
         <article class="bg-white rounded-lg shadow-lg p-8">
           <header class="mb-8">
             <h1 class="text-4xl font-bold text-gray-900 mb-4">
@@ -80,43 +88,16 @@
 
           <!-- Navigation -->
           <div class="border-t pt-8 mt-8">
-            <div class="flex justify-between items-center">
+            <div class="text-center">
               <button 
                 @click="$router.push('/posts')"
                 class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded transition-colors"
               >
                 All Posts
               </button>
-              <div class="flex space-x-4">
-                <button 
-                  v-if="postsStore.currentPost.id > 1"
-                  @click="navigateToPost(postsStore.currentPost.id - 1)"
-                  class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-                >
-                  Previous
-                </button>
-                <button 
-                  @click="navigateToPost(postsStore.currentPost.id + 1)"
-                  class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-                >
-                  Next
-                </button>
-              </div>
             </div>
           </div>
         </article>
-      </div>
-
-      <!-- Not Found -->
-      <div v-else class="text-center py-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Post Not Found</h2>
-        <p class="text-gray-600 mb-6">The post you're looking for doesn't exist.</p>
-        <button 
-          @click="$router.push('/posts')"
-          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors"
-        >
-          Back to Posts
-        </button>
       </div>
     </div>
   </div>
@@ -129,26 +110,27 @@ const route = useRoute()
 const router = useRouter()
 const postsStore = usePostsStore()
 
-const postId = computed(() => parseInt(route.params.id))
+// Reactive data
+const currentId = computed(() => parseInt(route.params.id))
 
-// Fetch post on component mount and when route changes
-watch(postId, fetchPost, { immediate: true })
+// Watch for route changes and fetch post
+watch(() => route.params.id, async (newId) => {
+  if (newId) {
+    await fetchPost()
+  }
+}, { immediate: true })
 
 async function fetchPost() {
-  if (!postId.value || isNaN(postId.value)) {
+  if (!currentId.value || isNaN(currentId.value)) {
     await router.push('/posts')
     return
   }
 
   try {
-    await postsStore.fetchPostById(postId.value)
+    await postsStore.fetchPostById(currentId.value)
   } catch (error) {
     console.error('Error fetching post:', error)
   }
-}
-
-function navigateToPost(id) {
-  router.push(`/posts/${id}`)
 }
 
 // Clear current post when leaving the page
