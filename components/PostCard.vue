@@ -17,30 +17,9 @@
       <span>User {{ post.userId }}</span>
     </div>
     
-    <div v-if="post.tags && post.tags.length" class="mt-4">
-      <div class="flex flex-wrap gap-2">
-        <span 
-          v-for="tag in post.tags.slice(0, 3)" 
-          :key="tag"
-          class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
-        >
-          #{{ tag }}
-        </span>
-        <span 
-          v-if="post.tags.length > 3"
-          class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
-        >
-          +{{ post.tags.length - 3 }} more
-        </span>
-      </div>
-    </div>
     
-    <div v-if="post.reactions" class="mt-4 flex items-center">
-      <svg class="w-4 h-4 text-red-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-      </svg>
-      <span class="text-sm text-gray-600">{{ post.reactions }}</span>
-    </div>
+    
+    
   </div>
 </template>
 

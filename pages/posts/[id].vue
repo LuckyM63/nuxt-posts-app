@@ -61,30 +61,7 @@
             </p>
           </div>
 
-          <!-- Tags -->
-          <div v-if="postsStore.currentPost.tags && postsStore.currentPost.tags.length" 
-               class="mb-8">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3">Tags</h3>
-            <div class="flex flex-wrap gap-2">
-              <span 
-                v-for="tag in postsStore.currentPost.tags" 
-                :key="tag"
-                class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
-              >
-                #{{ tag }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Reactions -->
-          <div v-if="postsStore.currentPost.reactions" class="mb-8">
-            <div class="flex items-center">
-              <svg class="w-6 h-6 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-              </svg>
-              <span class="text-lg text-gray-700">{{ postsStore.currentPost.reactions }} reactions</span>
-            </div>
-          </div>
+         
 
           <!-- Navigation -->
           <div class="border-t pt-8 mt-8">
