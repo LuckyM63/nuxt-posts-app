@@ -25,7 +25,6 @@ A modern, responsive web application built with Nuxt.js 3 for browsing and viewi
 - **⚡ Fast Loading** - Optimized performance with intelligent caching
 - **🔄 Smart Caching** - 15-minute cache system to reduce API calls
 - **🎨 Modern UI** - Beautiful interface with Tailwind CSS
-- **🧭 Dynamic Routing** - SEO-friendly URLs for each post
 
 ### 🛠️ Technical Features
 - **🏪 State Management** - Centralized state with Pinia
@@ -246,9 +245,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Twitter: [@yourhandle](https://twitter.com/yourhandle)
-- Email: your.email@example.com
+- GitHub: https://github.com/LuckyM63
+- LinkedIn: https://www.linkedin.com/in/lucky-mishra-june2000/
+- Email: mishra2000lucky@gmail.com
 
 
